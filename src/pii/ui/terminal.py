@@ -243,7 +243,7 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
 	def setup_text_edit_font(self, size=None):
 		font_size = size if size else self.font_point_size
 		self.text_editor_font = QtGui.QFont()
-		self.text_editor_font.setFamily("Monospace")
+		self.text_editor_font.setFamily("Consolas")
 		self.text_editor_font.setStyleHint(QtGui.QFont.TypeWriter)
 		self.text_editor_font.setFixedPitch(True)
 		self.text_editor_font.setPointSize(font_size)
