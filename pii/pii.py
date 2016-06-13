@@ -3,12 +3,12 @@ import os
 import inspect
 from PyQt4 import QtGui
 
-# Fudge the python module
+# Construct a path to the icon
 full_script_path = inspect.getfile(inspect.currentframe())
 icon_path = os.path.abspath(os.path.join(full_script_path, "..\\..\\icons\\python.png"))
 
-from pii import ui
-from pii.ui import dialog
+from piilib import ui
+from piilib.ui import dialog
 
 def main():
 	app = QtGui.QApplication([])

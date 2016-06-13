@@ -5,10 +5,8 @@ import sys
 import inspect
 import unittest
 
-# Fudge the python module
-full_script_path = inspect.getfile(inspect.currentframe())
-full_source_path = os.path.abspath(os.path.join(full_script_path, "../../src"))
-sys.path.insert(0, full_source_path)
+# Add the pii module to the path
+sys.path.insert(0, os.path.abspath(".."))
 
 # Import the pii module
 import pii
