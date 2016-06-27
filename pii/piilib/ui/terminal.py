@@ -39,8 +39,8 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
     # Class constructor
     # ========================================================================
 
-    def __init__(self):
-        super(PiiTerminal, self).__init__()
+    def __init__(self, parent=None):
+        super(PiiTerminal, self).__init__(parent)
         self.user_prompt = self.PS1
         self.is_multiline = False
         self.setLineWrapMode(QtGui.QPlainTextEdit.WidgetWidth)

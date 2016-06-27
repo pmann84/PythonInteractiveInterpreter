@@ -12,8 +12,8 @@ class PiiExtendedPlainTextEdit(QtGui.QPlainTextEdit):
         Provides extended text and document processing
         functionality for the QPlainTextEdit widget
     """
-    def __init__(self):
-        super(PiiExtendedPlainTextEdit, self).__init__()
+    def __init__(self, parent=None):
+        super(PiiExtendedPlainTextEdit, self).__init__(parent)
 
     def insert_line_break(self, num):
         for i in range(num):

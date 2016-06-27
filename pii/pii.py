@@ -9,8 +9,8 @@ icon_path = os.path.abspath(os.path.join(full_script_path, "..\\..\\icons\\pytho
 
 import piilib
 
-
 def main():
+    global app
     app = QtGui.QApplication([])
     icon = QtGui.QIcon(icon_path)
     win = piilib.ui.dialog.PiiDialog()

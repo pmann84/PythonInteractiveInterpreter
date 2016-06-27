@@ -14,7 +14,6 @@ class PiiDialog(QtGui.QDialog):
         super(PiiDialog, self).__init__()
         self.resize(700, 400)
         self.setWindowTitle("Pii")
-
         self.setLayout(QtGui.QVBoxLayout())
         layout_margin = 1.0
         self.layout().setContentsMargins(layout_margin, layout_margin, layout_margin, layout_margin)
