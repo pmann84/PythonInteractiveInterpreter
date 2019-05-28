@@ -10,7 +10,7 @@ An graphical interactive Python interpreter with module introspection.
 #### Summary of set up ####
 Setup is very manual at the moment. First checkout the source code from the repository. Then you can run the application, the script is setup so that you just have to run
 
-	python <path_to_pii_checkout>/bin/pii.py
+	python <path_to_pii_checkout>/pii/pii.py
 
 this will launch the application and will be ready for use immediately.
 
