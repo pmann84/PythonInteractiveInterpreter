@@ -27,7 +27,7 @@ class PiiTextFormats(object):
         return bold_format
 
     def setup_bold_green_font(self):
-        return self.setup_bold_font(colour=QtCore.Qt.green)
+        return self.setup_bold_font(colour=QtCore.Qt.darkGreen)
 
     def setup_bold_red_font(self):
         return self.setup_bold_font(colour=QtCore.Qt.red)
