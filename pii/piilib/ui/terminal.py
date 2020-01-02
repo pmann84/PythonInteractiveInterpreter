@@ -1,6 +1,10 @@
-from PyQt4 import QtGui, QtCore
 import sys
 from contextlib import contextmanager
+
+# Qt Imports
+from PyQt5.QtWidgets import QPlainTextEdit, QToolTip
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont, QTextCursor
 
 # Local imports 
 from .. import history
@@ -33,7 +37,7 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
     RESULT_PROMPT = "Result "
     TAB_WIDTH = 4
     FONT_SIZE = 9
-    IGNORE_KEYS = [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]
+    IGNORE_KEYS = [Qt.Key_PageUp, Qt.Key_PageDown]
 
     # ========================================================================
     # Class constructor
@@ -43,9 +47,9 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
         super(PiiTerminal, self).__init__(parent)
         self.user_prompt = self.PS1
         self.is_multiline = False
-        self.setLineWrapMode(QtGui.QPlainTextEdit.WidgetWidth)
+        self.setLineWrapMode(QPlainTextEdit.WidgetWidth)
         # Set up the font
-        self.text_editor_font = QtGui.QFont()
+        self.text_editor_font = QFont()
         self.font_point_size = self.FONT_SIZE
         self.setup_text_edit_font()
         self.setFont(self.text_editor_font)
@@ -89,7 +93,7 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
 
     def mouseReleaseEvent(self, event):
         # If the middle mouse was pressed then paste in the text
-        if not self.has_just_double_clicked and event.button() == QtCore.Qt.MidButton:
+        if not self.has_just_double_clicked and event.button() == Qt.MidButton:
             # Reset the extra selections of the text edit
             self.clear_extra_selections()
             # Paste the contents of the clipboard
@@ -106,8 +110,8 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
         # Now grab the word under the cursor, first
         # get the cursor for the event position
         cursor = self.cursorForPosition(event.pos())
-        cursor.movePosition(QtGui.QTextCursor.StartOfWord)
-        cursor.movePosition(QtGui.QTextCursor.EndOfWord, mode=QtGui.QTextCursor.KeepAnchor)
+        cursor.movePosition(QTextCursor.StartOfWord)
+        cursor.movePosition(QTextCursor.EndOfWord, mode=QTextCursor.KeepAnchor)
         # Set the extra selection
         self.set_extra_selection_from_cursor(cursor)
         # set the double click flag
@@ -123,7 +127,7 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
         # if the positions are different
         if self.old_cursor_pos.position() != new_cursor_position:
             cursor.setPosition(self.old_cursor_pos.position())
-            cursor.setPosition(new_cursor_position, mode=QtGui.QTextCursor.KeepAnchor)
+            cursor.setPosition(new_cursor_position, mode=QTextCursor.KeepAnchor)
             self.set_extra_selection_from_cursor(cursor)
             # Set the vertical scroll bar to be where the mouse cursor is
             # self.verticalScrollBar().setValue(new_cursor_block_position) #self.verticalScrollBar().maximum())
@@ -137,27 +141,27 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
         if key_pressed in self.IGNORE_KEYS:
             pass
         # Handle return on the shell - execute command
-        elif key_pressed == QtCore.Qt.Key_Return:
+        elif key_pressed == Qt.Key_Return:
             if self.pii_completer and self.pii_completer.is_visible():
                 event.ignore()  # Ignoring the enter keypress here makes qt fall back and use the completer event
             else:
                 self.handle_enter()
         # Handle cursor move up - go backwards through command history
-        elif key_pressed == QtCore.Qt.Key_Up:
+        elif key_pressed == Qt.Key_Up:
             self.handle_up()
         # Handle cursor move up - go forwards through command history
-        elif key_pressed == QtCore.Qt.Key_Down:
+        elif key_pressed == Qt.Key_Down:
             self.handle_down()
         # Handle cursor move left - default behaviour unless at start of line
-        elif key_pressed == QtCore.Qt.Key_Left and self.at_command_start():
+        elif key_pressed == Qt.Key_Left and self.at_command_start():
             pass
         # Handle backspace - default behaviour unless at start of line
-        elif key_pressed == QtCore.Qt.Key_Backspace and self.at_command_start():
+        elif key_pressed == Qt.Key_Backspace and self.at_command_start():
             pass
         # Handle Home press - jumps to start of line (after prompt)
-        elif key_pressed == QtCore.Qt.Key_Home:
+        elif key_pressed == Qt.Key_Home:
             self.handle_home()
-        elif key_pressed == QtCore.Qt.Key_Escape:
+        elif key_pressed == Qt.Key_Escape:
             self.pii_completer.hide_if_visible()
         # All other key presses default to normal behaviour
         else:
@@ -197,7 +201,7 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
             self.pii_completer.hide_if_visible()
             module_fn = ".".join(module_hierarchy).strip("(")
             docstring = self.pii_interpreter.get_object_docstring(module_fn)
-            QtGui.QToolTip.showText(self.get_text_cursor_position(), docstring)
+            QToolTip.showText(self.get_text_cursor_position(), docstring)
         # 3) text_before != "(" or "." -> update to complete from locals
         elif self.at_prompt() or self.text_under_empty() or (self.text_under_eq_text_before() and len(module_hierarchy) == 1):
             self.pii_completer.update_matches(self.pii_interpreter.get_local_list())
@@ -237,21 +241,21 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
         self.insertPlainText(self.user_prompt)
         pformat = pformat if pformat else PiiTextFormats().BOLD
         tc = self.textCursor()
-        tc.movePosition(QtGui.QTextCursor.StartOfLine)
-        tc.select(QtGui.QTextCursor.WordUnderCursor)
+        tc.movePosition(QTextCursor.StartOfLine)
+        tc.select(QTextCursor.WordUnderCursor)
         tc.mergeCharFormat(pformat)
 
     def initialise_interpreter(self):
         self.pii_interpreter = interpreter.PiiInterpreter()
 
     def initialise_tooltip(self):
-        QtGui.QToolTip.setFont(self.text_editor_font)
+        QToolTip.setFont(self.text_editor_font)
 
     def setup_text_edit_font(self, size=None):
         font_size = size if size else self.font_point_size
-        self.text_editor_font = QtGui.QFont()
+        self.text_editor_font = QFont()
         self.text_editor_font.setFamily("Consolas")
-        self.text_editor_font.setStyleHint(QtGui.QFont.TypeWriter)
+        self.text_editor_font.setStyleHint(QFont.TypeWriter)
         self.text_editor_font.setFixedPitch(True)
         self.text_editor_font.setPointSize(font_size)
 
@@ -263,8 +267,8 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
         return text_before == self.user_prompt.rstrip()
 
     def on_user_prompt_line(self, cursor):
-        cursor.movePosition(QtGui.QTextCursor.StartOfLine)
-        cursor.select(QtGui.QTextCursor.WordUnderCursor)
+        cursor.movePosition(QTextCursor.StartOfLine)
+        cursor.select(QTextCursor.WordUnderCursor)
         prompt = str(cursor.selectedText()) + " "
         return prompt in [self.PS1, self.PS2]
 
@@ -297,13 +301,13 @@ class PiiTerminal(PiiExtendedPlainTextEdit):
     def clear_text_from_line(self):
         # Get the start pos and end pos
         start_pos = self.textCursor().block().position() + len(self.user_prompt)
-        self.moveCursor(QtGui.QTextCursor.EndOfLine)
+        self.moveCursor(QTextCursor.EndOfLine)
         end_pos = self.textCursor().position()
         # Select the line
         if start_pos != end_pos:
             cursor = self.textCursor()
             cursor.setPosition(start_pos)
-            cursor.setPosition(end_pos, QtGui.QTextCursor.KeepAnchor)
+            cursor.setPosition(end_pos, QTextCursor.KeepAnchor)
             self.setTextCursor(cursor)
             # Delete the current selection
             self.textCursor().deleteChar()

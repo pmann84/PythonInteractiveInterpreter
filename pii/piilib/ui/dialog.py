@@ -1,4 +1,4 @@
-from PyQt4 import QtGui, QtCore
+from PyQt5.QtWidgets import QDialog, QVBoxLayout
 
 # Local Imports
 from .terminal import PiiTerminal
@@ -8,13 +8,13 @@ from .terminal import PiiTerminal
 # ========================================================================
 
 
-class PiiDialog(QtGui.QDialog):
+class PiiDialog(QDialog):
 
     def __init__(self):
         super(PiiDialog, self).__init__()
         self.resize(700, 400)
         self.setWindowTitle("Pii")
-        self.setLayout(QtGui.QVBoxLayout())
+        self.setLayout(QVBoxLayout())
         layout_margin = 1.0
         self.layout().setContentsMargins(layout_margin, layout_margin, layout_margin, layout_margin)
         self.pii_term = PiiTerminal()

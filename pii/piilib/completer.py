@@ -1,11 +1,12 @@
-from PyQt4 import QtGui, QtCore
+from PyQt5.QtCore import Qt, QStringListModel
+from PyQt5.QtWidgets import QCompleter
 
 # ========================================================================
 # Python Autocompleter
 # ========================================================================
 
 
-class PiiAutoCompleter(QtGui.QCompleter):
+class PiiAutoCompleter(QCompleter):
     # Define a signal here that gets emitted when a user
     # hits enter or selects a word, then on the text edit
     # connect a function to that signal that replaces the
@@ -22,8 +23,8 @@ class PiiAutoCompleter(QtGui.QCompleter):
         if font:
             self.set_font(font)
         # Set some of the properties of the completer
-        self.setCompletionMode(QtGui.QCompleter.PopupCompletion)
-        self.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.setCompletionMode(QCompleter.PopupCompletion)
+        self.setCaseSensitivity(Qt.CaseInsensitive)
         # Store the matches as a set
         self.all_matches = set(matches)
 
@@ -31,7 +32,7 @@ class PiiAutoCompleter(QtGui.QCompleter):
         self.all_matches = set(matches)
         new_matches = list(self.all_matches)
         new_matches.sort()
-        model = QtGui.QStringListModel(new_matches, self)
+        model = QStringListModel(new_matches, self)
         self.setModel(model)
 
     # def update_completion_prefix(self, prefix):

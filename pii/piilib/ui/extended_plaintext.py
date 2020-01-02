@@ -1,4 +1,6 @@
-from PyQt4 import QtGui, QtCore
+from PyQt5.QtWidgets import QPlainTextEdit, QTextEdit, QApplication
+from PyQt5.QtCore import Qt, QPoint
+from PyQt5.QtGui import QTextCursor
 
 from .formats import PiiTextFormats
 
@@ -7,7 +9,7 @@ from .formats import PiiTextFormats
 # ========================================================================
 
 
-class PiiExtendedPlainTextEdit(QtGui.QPlainTextEdit):
+class PiiExtendedPlainTextEdit(QPlainTextEdit):
     """
         Provides extended text and document processing
         functionality for the QPlainTextEdit widget
@@ -25,7 +27,7 @@ class PiiExtendedPlainTextEdit(QtGui.QPlainTextEdit):
             self.insertPlainText("\t")
 
     def text_enter_direction(self, key_pressed):
-        if key_pressed == QtCore.Qt.Key_Backspace:
+        if key_pressed == Qt.Key_Backspace:
             return "backward"
         else:
             return "forward"
@@ -51,29 +53,29 @@ class PiiExtendedPlainTextEdit(QtGui.QPlainTextEdit):
 
     def get_text_under_cursor(self):
         tc = self.textCursor()
-        tc.select(QtGui.QTextCursor.WordUnderCursor)
+        tc.select(QTextCursor.WordUnderCursor)
         return str(tc.selectedText())
 
     def get_text_before_cursor(self, offset=1):
         tc = self.textCursor()
         for i in range(offset):
-            tc.movePosition(QtGui.QTextCursor.PreviousWord)
-        tc.select(QtGui.QTextCursor.WordUnderCursor)
+            tc.movePosition(QTextCursor.PreviousWord)
+        tc.select(QTextCursor.WordUnderCursor)
         return str(tc.selectedText())
 
     def replace_text_under_cursor(self, replace_text):
         tc = self.textCursor()
-        tc.select(QtGui.QTextCursor.WordUnderCursor)
+        tc.select(QTextCursor.WordUnderCursor)
         tc.insertText(replace_text)
 
     def get_text_cursor_position(self, offset=0):
         widget_pos = self.mapToGlobal(self.pos())
         cursor_pos = self.cursorRect().bottomRight()
-        offset_pos = QtCore.QPoint(offset, offset)
+        offset_pos = QPoint(offset, offset)
         return widget_pos + cursor_pos + offset_pos
 
     def move_to_line_end(self):
-        self.moveCursor(QtGui.QTextCursor.EndOfLine)
+        self.moveCursor(QTextCursor.EndOfLine)
 
     def move_to_line_start(self, str_prefix=""):
         new_cursor_position = self.textCursor().block().position() + len(str_prefix)
@@ -82,17 +84,17 @@ class PiiExtendedPlainTextEdit(QtGui.QPlainTextEdit):
         self.setTextCursor(new_cursor)
 
     def copy_text_to_clipboard(self, text):
-        cb = QtGui.QApplication.clipboard()
+        cb = QApplication.clipboard()
         cb.clear(mode=cb.Clipboard )
         cb.setText(text, mode=cb.Clipboard)
 
     def get_clipboard_text(self):
-        cb = QtGui.QApplication.clipboard()
+        cb = QApplication.clipboard()
         return cb.text()
 
     def set_extra_selection_from_cursor(self, cursor):
         # Construct the extra selection
-        selection = QtGui.QTextEdit.ExtraSelection()
+        selection = QTextEdit.ExtraSelection()
         # Set its format to be the highlight format
         selection.format = PiiTextFormats().HIGHLIGHT
         # Set the selections cursor to be the selected

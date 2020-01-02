@@ -17,9 +17,10 @@ class PiiCommandHistory(object):
         self.reset_history_position()
 
     def get_prev_command(self):
-        if self.history_pos > 0:
-            self.history_pos -= 1
-        return self.command_list[self.history_pos]
+        if len(self.command_list) > 0:
+            if self.history_pos > 0:
+                self.history_pos -= 1
+            return self.command_list[self.history_pos]
 
     def get_next_command(self):
         if self.history_pos >= len(self.command_list)-1:
