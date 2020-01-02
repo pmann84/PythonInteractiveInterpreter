@@ -46,3 +46,10 @@ this will launch the application and will be ready for use immediately.
 The tests can simply be run by 
 
 `python <path_to_pii_checkout>/unittests/unittests.py`
+
+## Features ##
+* Module introspection and completion whilst typing
+* Command history available using up and down arrow keys
+* Paste selected text with middle mouse button
+
+
