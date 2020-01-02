@@ -31,7 +31,7 @@ Install dependencies with `pip`
 ### Generating Executable ###
 You can generate an exe for the interactive interpreter that makes it easier to run/distribute you can do this by running
 
-`pyinstaller -F -w pii\pii.py` 
+`pyinstaller -F -w -i "icons\python.ico" pii\pii.py` 
 
 this generates an exe in the `dist` folder. Note this has only been tested on Windows :D
 
