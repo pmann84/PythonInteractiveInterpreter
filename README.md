@@ -8,10 +8,10 @@ An graphical interactive Python interpreter with module introspection.
 ## How do I get set up? ##
 
 ### Dependencies ###
-This application has the following package dependencies (see requirements.txt for versions):
-	* Python 3.4+
-	* PyQt5
-	* PyInstaller 
+This application has the following package dependencies (see requirements.txt for versions):  
+- Python 3.4+
+- PyQt5
+- PyInstaller 
 
 You can install these dependencies using pip, preferably in a virtual environment.
 
