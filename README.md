@@ -45,7 +45,7 @@ this will launch the application and will be ready for use immediately.
 ### Running the tests ###
 The tests can simply be run by 
 
-`python <path_to_pii_checkout>/unittests/unittests.py`
+`python -m unittest discover .\tests`
 
 ## Features ##
 * Module introspection and completion whilst typing
