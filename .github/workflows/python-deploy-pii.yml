@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Python application
+name: Build PII
 
 on:
   push:
@@ -27,3 +27,8 @@ jobs:
     - name: Build Executable
       run: |
         pyinstaller -F -w -i "icons\python.ico" pii\pii.py
+    - name: Archive Executable
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: .\dist\pii.exe
