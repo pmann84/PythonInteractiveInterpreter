@@ -8,7 +8,7 @@ import unittest
 sys.path.insert(0, os.path.abspath(".."))
 
 # Import the pii module
-import pii
+from pii import piilib
 
 
 # Setup class for history tests
@@ -18,7 +18,7 @@ class PiiCommandHistoryTestSetup(unittest.TestCase):
 
     def setUp(self):
         # Instantiate a PiiCommandHistory object
-        self.history = pii.history.PiiCommandHistory()
+        self.history = piilib.history.PiiCommandHistory()
         # Add 3 commands to history
         for cmd in self.CMDS:
             self.history.add_to_history(cmd)
