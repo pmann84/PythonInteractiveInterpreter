@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="light.qss">../resources/light.qss</file>
+        <file alias="dark.qss">../resources/dark.qss</file>
+    </qresource>
+</RCC>

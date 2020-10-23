@@ -1,0 +1,11 @@
+QWidget
+{
+    color: #31363B;
+    background-color: #EFF0F1;
+    selection-background-color:#33A4DF;
+    selection-color: #31363B;
+    background-clip: border;
+    border-image: none;
+    border: 0px transparent black;
+    outline: 0;
+}

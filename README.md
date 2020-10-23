@@ -28,6 +28,10 @@ Install dependencies with `pip`
 
 `pip install -r requirements.txt`
 
+### Compile resources ###
+Compile the resource file for the stylesheets
+`pyrcc5 pii\resource.qrc -o pii\resource_rc.py`
+
 ### Generating Executable ###
 You can generate an exe for the interactive interpreter that makes it easier to run/distribute you can do this by running
 
